@@ -6,7 +6,6 @@ export const peerConnectionConfig = {
   // },
 };
 
-
 // --------socket.io server options--------
 // export const opts = undefined;
 export const opts = { cors: { origin: "*" } };
