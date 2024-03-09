@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Tesseract, autoMouse } from "../../browser/util/tesseract";
+import { checkPos } from "../../browser/canvas";
 
 type Rectangle = {
     top: number;
@@ -10,14 +11,48 @@ type Rectangle = {
 
 export const UseOCR: React.FC<{canvas: HTMLCanvasElement}> = ({canvas}) => {
     return (
-        <details>
-            <summary>OCR</summary>
+        <>
+            <CheckMousePosition />
+            <details>
+                <summary>test OCR</summary>
                 <UseTesseract id={"test"} canvas={canvas} rectangle={{left: 0, top: 0, width: canvas.width, height: canvas.height}}/>
+            </details>
+            <details>
+                <summary>bid OCR</summary>
                 <UseTesseractTick id={"bid"} canvas={canvas}/>
+            </details>
+            <details>
+                <summary>bid2 OCR</summary>
                 <UseTesseractTick2 id={"bid2"} canvas={canvas}/>
-                {/* <UseTesseractTickAll id={"tick"} canvas={canvas}/> */}
+            </details>
+            {/* <details>
+                <summary>tickall OCR</summary>
+                <UseTesseractTickAll id={"tick"} canvas={canvas}/>
+            </details> */}
+            <details>
+                <summary>auto control</summary>
                 <AutoControl canvas={canvas} />
-        </details>
+            </details>
+        </>
+        
+    );
+};
+
+let isCheckPos = false;
+const CheckMousePosition: React.FC = () => {
+
+    return(
+        <div>
+            <button className="btn btn-sm btn-outline text-base btn-warning" ref={
+                    c => {if(c){
+                        c.onclick = () => { 
+                            isCheckPos = !isCheckPos;
+                            checkPos(isCheckPos);
+                            console.log(`check Position: ${isCheckPos}`);
+                        }
+                    }}
+            }>check Mouse Position</button>
+        </div>
     );
 };
 
@@ -283,10 +318,10 @@ export const UseTesseractTick: React.FC<{id: string, canvas: HTMLCanvasElement}>
 };
 
 export const UseTesseractTick2: React.FC<{id: string, canvas: HTMLCanvasElement}> = ({id, canvas}) => {
-    const r1 = {left: 67, top:660, width: 152, height: 718};
-    const r2 = {left: 163, top:660, width: 239, height: 718};
-    const r3 = {left: 238, top:656, width: 271, height: 698};
-    const rs = {left: 471, top: 551, width: 522, height: 580};
+    const r1 = {left: 39, top: 335, width: 80, height: 365};
+    const r2 = {left: 84, top: 335, width: 122, height: 365};
+    const r3 = {left: 122, top: 334, width: 137, height: 354};
+    const rs = {left: 237, top: 279, width: 267, height: 296};
     
     const top1Ref = useRef<HTMLInputElement>(null);
     const left1Ref = useRef<HTMLInputElement>(null);

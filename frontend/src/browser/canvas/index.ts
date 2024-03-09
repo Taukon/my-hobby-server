@@ -2,6 +2,12 @@ import { ButtonJson, KeyJson, MotionJson, MousePos } from "./type";
 import { appStatus, createAppProtocolFromJson } from "../protocol";
 import { ShareApp } from "../shareApp";
 
+let isCheckPos = false;
+
+export const checkPos = (isCheck: boolean) => {
+  isCheckPos = isCheck;
+};
+
 export const controlEventListener = (
   shareApp: ShareApp,
   canvas: HTMLCanvasElement,
@@ -10,6 +16,12 @@ export const controlEventListener = (
   canvas.addEventListener(
     "mousedown",
     (event) => {
+      if (isCheckPos) {
+        const pos = getPos(canvas, event);
+        console.log(`pos : x=${Math.round(pos.x)}, y=${Math.round(pos.y)}`);
+        return;
+      }
+
       const button: ButtonJson = { button: { buttonMask: 0x1, down: true } };
       if (event.button === 1) {
         // middle click
@@ -23,13 +35,16 @@ export const controlEventListener = (
           createAppProtocolFromJson(JSON.stringify(button), appStatus.control),
         );
       // console.log("mousedown: " + JSON.stringify(event.button));
-      // console.log(`mousemove : ${JSON.stringify(getPos(canvas, event))}`);
     },
     false,
   );
   canvas.addEventListener(
     "mouseup",
     (event) => {
+      if (isCheckPos) {
+        return;
+      }
+
       const button: ButtonJson = { button: { buttonMask: 0x1, down: false } };
       if (event.button === 1) {
         // middle click
@@ -49,6 +64,10 @@ export const controlEventListener = (
   canvas.addEventListener(
     "mousemove",
     (event) => {
+      if (isCheckPos) {
+        return;
+      }
+
       const pos = getPos(canvas, event);
       const motion: MotionJson = {
         move: {
@@ -62,7 +81,7 @@ export const controlEventListener = (
         dataChannel.send(
           createAppProtocolFromJson(JSON.stringify(motion), appStatus.control),
         );
-      console.log(`mousemove : x=${motion.move.x}, y=${motion.move.y}`);
+      // console.log(`mousemove : x=${motion.move.x}, y=${motion.move.y}`);
     },
     false,
   );
@@ -70,6 +89,10 @@ export const controlEventListener = (
   canvas.addEventListener(
     "contextmenu",
     (event) => {
+      if (isCheckPos) {
+        return;
+      }
+
       event.preventDefault();
       const buttonDown: ButtonJson = {
         button: { buttonMask: 0x4, down: true },
