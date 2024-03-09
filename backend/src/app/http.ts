@@ -6,6 +6,7 @@ import { UserManage } from "../userManage";
 import { signalingBrowser } from "../signaling/browser";
 import { signalingDesktop } from "../signaling/desktop";
 import { signalingProxy } from "../signaling/proxy";
+import { opts } from "../config";
 
 const getIpAddress = (): string | undefined => {
   const nets = networkInterfaces();
@@ -33,7 +34,7 @@ app.use(express.static("../public"));
 // --- WebSocket Server ---
 const httpServer = http.createServer(app);
 
-const socketServer = new Server(httpServer);
+const socketServer = new Server(httpServer, opts);
 
 httpServer.listen(clientPort, () => {
   console.log(`http://${ip_addr}:${clientPort}`);

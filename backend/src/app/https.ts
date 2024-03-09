@@ -7,6 +7,7 @@ import { UserManage } from "../userManage";
 import { signalingBrowser } from "../signaling/browser";
 import { signalingDesktop } from "../signaling/desktop";
 import { signalingProxy } from "../signaling/proxy";
+import { opts } from "../config";
 
 const getIpAddress = (): string | undefined => {
   const nets = networkInterfaces();
@@ -40,7 +41,7 @@ const options = {
 // --- WebSocket Server ---
 const httpsServer = https.createServer(options, app);
 
-const socketServer = new Server(httpsServer);
+const socketServer = new Server(httpsServer, opts);
 
 httpsServer.listen(clientPort, () => {
   console.log(`https://${ip_addr}:${clientPort}`);

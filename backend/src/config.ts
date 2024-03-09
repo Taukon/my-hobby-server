@@ -5,3 +5,8 @@ export const peerConnectionConfig = {
   //   offerToReceiveVideo: true
   // },
 };
+
+
+// --------socket.io server options--------
+// export const opts = undefined;
+export const opts = { cors: { origin: "*" } };
