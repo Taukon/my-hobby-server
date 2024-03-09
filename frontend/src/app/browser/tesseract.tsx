@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tesseract, autoMouse } from "../../browser/util/tesseract";
 import { checkPos } from "../../browser/canvas";
 
@@ -38,19 +38,18 @@ export const UseOCR: React.FC<{canvas: HTMLCanvasElement}> = ({canvas}) => {
     );
 };
 
-let isCheckPos = false;
 const CheckMousePosition: React.FC = () => {
+    const [isCheckState, setIsCheckState] = useState(false);
+    useEffect(() => {
+        checkPos(isCheckState);
+        // console.log(`check Position: ${isCheckState}`);
+    }, [isCheckState]);
 
     return(
         <div>
+            {`${isCheckState}`}:&nbsp;
             <button className="btn btn-sm btn-outline text-base btn-warning" ref={
-                    c => {if(c){
-                        c.onclick = () => { 
-                            isCheckPos = !isCheckPos;
-                            checkPos(isCheckPos);
-                            console.log(`check Position: ${isCheckPos}`);
-                        }
-                    }}
+                    c => {if(c){c.onclick = () => {setIsCheckState(!isCheckState);}}}
             }>check Mouse Position</button>
         </div>
     );
