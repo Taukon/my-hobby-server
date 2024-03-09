@@ -23,6 +23,7 @@ export const controlEventListener = (
           createAppProtocolFromJson(JSON.stringify(button), appStatus.control),
         );
       // console.log("mousedown: " + JSON.stringify(event.button));
+      // console.log(`mousemove : ${JSON.stringify(getPos(canvas, event))}`);
     },
     false,
   );
@@ -61,7 +62,7 @@ export const controlEventListener = (
         dataChannel.send(
           createAppProtocolFromJson(JSON.stringify(motion), appStatus.control),
         );
-      //console.log("mousemove : x=" + pos.x + ", y=" + pos.y);
+      console.log(`mousemove : x=${motion.move.x}, y=${motion.move.y}`);
     },
     false,
   );

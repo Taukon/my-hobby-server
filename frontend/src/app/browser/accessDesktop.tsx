@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { timer } from "../../browser/util";
 import { impromptu } from ".";
+import { UseOCR } from "./tesseract";
 
 export const AccessDesktop: React.FC = () => {
   const [res, setRes] = useState<{id: string}>();
@@ -91,6 +92,10 @@ export const AccessDesktop: React.FC = () => {
                 }>
                   Screen
                 </button>
+                {impromptu.isOpenShareApp(v.access.desktopId) ? 
+                <>
+                  <UseOCR canvas={v.shareApp.canvas} />
+                </> : <></>}
                 <div ref={c => {
                   while(c?.firstChild){
                     c.removeChild(c.firstChild);

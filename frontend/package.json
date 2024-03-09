@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "recharts": "^2.10.3",
     "socket.io-client": "^4.6.1",
-    "streamsaver": "^2.0.6"
+    "streamsaver": "^2.0.6",
+    "tesseract.js": "^5.0.5"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.1",
