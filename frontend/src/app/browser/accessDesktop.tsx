@@ -100,6 +100,27 @@ export const AccessDesktop: React.FC = () => {
               </button>
               {impromptu.isOpenShareApp(v.access.desktopId) ? (
                 <>
+                  <div>
+                    control:&nbsp;
+                    <button
+                      className="btn btn-sm btn-outline text-base btn-accent"
+                      ref={(c) => {
+                        if (c) {
+                          c.onclick = () => {
+                            const accept = v.shareApp.getControlAccept();
+                            v.shareApp.setControlAccept(!accept);
+                            if (accept) {
+                              c.textContent = `on`;
+                            } else {
+                              c.textContent = `off(check pos)`;
+                            }
+                          };
+                        }
+                      }}
+                    >
+                      {v.shareApp.getControlAccept() ? `off(check pos)` : `on`}
+                    </button>
+                  </div>
                   <UseOCR canvas={v.shareApp.canvas} />
                 </>
               ) : (

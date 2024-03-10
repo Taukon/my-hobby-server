@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Tesseract, autoMouse } from "../../ocr/tesseract";
-import { checkPos } from "../../browser/canvas";
 
 type Rectangle = {
   top: number;
@@ -12,7 +11,6 @@ type Rectangle = {
 export const UseOCR: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
   return (
     <>
-      <CheckMousePosition />
       <details>
         <summary>test OCR</summary>
         <UseTesseract
@@ -43,32 +41,6 @@ export const UseOCR: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
         <AutoControl canvas={canvas} />
       </details>
     </>
-  );
-};
-
-const CheckMousePosition: React.FC = () => {
-  const [isCheckState, setIsCheckState] = useState(false);
-  useEffect(() => {
-    checkPos(isCheckState);
-    // console.log(`check Position: ${isCheckState}`);
-  }, [isCheckState]);
-
-  return (
-    <div>
-      {`${isCheckState}`}:&nbsp;
-      <button
-        className="btn btn-sm btn-outline text-base btn-warning"
-        ref={(c) => {
-          if (c) {
-            c.onclick = () => {
-              setIsCheckState(!isCheckState);
-            };
-          }
-        }}
-      >
-        check Mouse Position
-      </button>
-    </div>
   );
 };
 
