@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { timer } from "../../browser/util";
 import { impromptu } from ".";
-import { UseOCR } from "./tesseract";
+import { UseOCR } from "./ocr";
 
 export const AccessDesktop: React.FC = () => {
   const [res, setRes] = useState<{ id: string }>();
