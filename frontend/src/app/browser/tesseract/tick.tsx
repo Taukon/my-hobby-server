@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Tesseract, autoMouse } from "../../../ocr/tesseract";
+import { Tesseract } from "../../../ocr/tesseract";
 import { ConnectionOCR } from "../../../ocr/connection";
 
 export const UseTesseractTick: React.FC<{
@@ -54,7 +54,7 @@ export const UseTesseractTick: React.FC<{
               if (c) {
                 c.onclick = () => {
                   if (!connection.isConnected()) {
-                    connection.connect();
+                    connection.connect(canvas);
                     c.disabled = true;
                   }
                 };
@@ -338,15 +338,18 @@ export const UseTesseractTick: React.FC<{
           ref={(c) => {
             if (c) {
               c.onclick = () => {
-                autoMouse(canvas, {
-                  button: "contextmenu",
-                  pos: { x: 500, y: 500 },
-                });
+                const acceptNow = connection.getAutoAccept();
+                connection.setAutoAccept(!acceptNow);
+                if (acceptNow) {
+                  c.textContent = `auto run`;
+                } else {
+                  c.textContent = `auto stop`;
+                }
               };
             }
           }}
         >
-          auto
+          {connection.getAutoAccept() ? `auto stop` : `auto run`}
         </button>
       </div>
     </>

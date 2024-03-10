@@ -1,6 +1,7 @@
 import { Socket, io } from "socket.io-client";
 import { RateInfo, Tick } from "./type";
 import { timer } from "./util";
+import { autoMouse } from ".";
 
 const dp = 10000;
 
@@ -11,6 +12,14 @@ export class ConnectionOCR {
     // secure: true,
     rejectUnauthorized: false,
     autoConnect: false, // necessary
+  };
+
+  private autoAccept = false;
+  public getAutoAccept = () => {
+    return this.autoAccept;
+  };
+  public setAutoAccept = (accept: boolean) => {
+    this.autoAccept = accept;
   };
 
   constructor() {
@@ -32,7 +41,7 @@ export class ConnectionOCR {
     return this.socket ? this.socket.connected : false;
   }
 
-  public connect() {
+  public connect(canvas?: HTMLCanvasElement) {
     if (this.socket == undefined) {
       this.socket = io(this.serverAddress, this.socketOption);
       this.socket.connect();
@@ -45,6 +54,19 @@ export class ConnectionOCR {
       this.socket.on("reqNow", (_, callback) => {
         callback(this.tick);
       });
+
+      if (canvas) {
+        this.socket.on("reqOrder", (order: string) => {
+          console.log(`order: ${order}`);
+          if (this.autoAccept) {
+            // auto control
+            autoMouse(canvas, {
+              button: "contextmenu",
+              pos: { x: 500, y: 500 },
+            });
+          }
+        });
+      }
     }
   }
 

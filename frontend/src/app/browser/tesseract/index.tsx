@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { Tesseract, autoMouse } from "../../../ocr/tesseract";
+import { Tesseract } from "../../../ocr/tesseract";
+import { autoMouse } from "../../../ocr";
 
 type Rectangle = {
   top: number;
