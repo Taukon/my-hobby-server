@@ -1,5 +1,5 @@
 import { Worker, createWorker } from "tesseract.js";
-import { timer } from "../util";
+import { timer } from "./util";
 
 type Rectangle = {
   top: number;

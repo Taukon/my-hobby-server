@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Tesseract, autoMouse } from "../../browser/util/tesseract";
+import { Tesseract, autoMouse } from "../../ocr/tesseract";
 import { checkPos } from "../../browser/canvas";
 
 type Rectangle = {
