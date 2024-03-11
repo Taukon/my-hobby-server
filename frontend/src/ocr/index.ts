@@ -12,8 +12,8 @@ export const autoMouse = async (
   if (option.pos) {
     canvas.dispatchEvent(
       new MouseEvent("mousemove", {
-        clientX: Math.round(option.pos.x),
-        clientY: Math.round(option.pos.y),
+        clientX: Math.round(option.pos.x + canvas.getBoundingClientRect().left),
+        clientY: Math.round(option.pos.y + canvas.getBoundingClientRect().top),
       }),
     );
 

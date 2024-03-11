@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Tesseract } from "../../../ocr/tesseract";
-import { autoMouse } from "../../../ocr";
+import { mouseClick } from "../../../ocr";
 
 type Rectangle = {
   top: number;
@@ -122,10 +122,7 @@ const AutoControl: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
         ref={(c) => {
           if (c) {
             c.onclick = () => {
-              autoMouse(canvas, {
-                button: "contextmenu",
-                pos: { x: 500, y: 500 },
-              });
+              mouseClick(true, canvas, { x: 217, y: 382 });
             };
           }
         }}
