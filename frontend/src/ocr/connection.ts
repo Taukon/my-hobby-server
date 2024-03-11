@@ -42,8 +42,8 @@ export class ConnectionOCR {
   }
 
   private orderNow = "";
-  public askPos = { x: 134, y: 359 };
-  public bidPos = { x: 255, y: 359 };
+  public bidPos = { x: 134, y: 359 };
+  public askPos = { x: 255, y: 359 };
   public left = true;
 
   private autoSettle = async (canvas: HTMLCanvasElement) => {
