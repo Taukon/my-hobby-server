@@ -38,3 +38,18 @@ export const autoMouse = async (
       break;
   }
 };
+
+export const mouseClick = async (
+  isLeft: boolean,
+  canvas: HTMLCanvasElement,
+  pos: { x: number; y: number },
+) => {
+  if (isLeft) {
+    await autoMouse(canvas, { button: "mousedown", pos: pos });
+    await autoMouse(canvas, { button: "mouseup", pos: pos });
+    await timer(100);
+  } else {
+    await autoMouse(canvas, { button: "contextmenu", pos: pos });
+    await timer(100);
+  }
+};

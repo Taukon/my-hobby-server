@@ -35,6 +35,12 @@ export const UseTesseractTick: React.FC<{
   const connection = new ConnectionOCR();
   const bidRef = useRef<HTMLDivElement>(null);
 
+  const bidXRef = useRef<HTMLInputElement>(null);
+  const bidYRef = useRef<HTMLInputElement>(null);
+
+  const askXRef = useRef<HTMLInputElement>(null);
+  const askYRef = useRef<HTMLInputElement>(null);
+
   let ocr: Tesseract | undefined;
 
   return (
@@ -65,12 +71,12 @@ export const UseTesseractTick: React.FC<{
           </button>
           &nbsp;
           <button
-            className="btn btn-sm btn-outline text-base btn-warning"
+            className="btn btn-sm btn-outline text-base btn-info"
             ref={(c) => {
               if (c) {
                 c.onclick = () => {
-                  if (connection.getIsloop()) {
-                    connection.stoploop();
+                  if (connection.getIsLoop()) {
+                    connection.stopLoop();
                     c.textContent = `run loop`;
                   } else {
                     connection.loopSendRate();
@@ -332,9 +338,79 @@ export const UseTesseractTick: React.FC<{
       </div>
       <div ref={bidRef}>bid: {bidRef.current?.textContent}</div>
       <div>
-        auto control:&nbsp;
+        {"Bid x: "}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
+          ref={bidXRef}
+          type="number"
+          min={1}
+          defaultValue={connection.bidPos.x}
+        />
+        {", y:"}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
+          ref={bidYRef}
+          type="number"
+          min={1}
+          defaultValue={connection.bidPos.y}
+        />
+        {" |  Ask {x: "}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
+          ref={askXRef}
+          type="number"
+          min={1}
+          defaultValue={connection.askPos.x}
+        />
+        {", y: "}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
+          ref={bidYRef}
+          type="number"
+          min={1}
+          defaultValue={connection.askPos.y}
+        />
+        &nbsp;
         <button
           className="btn btn-sm btn-outline text-base btn-base-content"
+          ref={(c) => {
+            if (c) {
+              c.onclick = () => {
+                connection.left = !connection.left;
+                c.textContent = `left click ${connection.left ? `off(now on)` : `on(now off)`}`;
+              };
+            }
+          }}
+        >
+          {`left click ${connection.left ? `off(now on)` : `on(now off)`}`}
+        </button>{" "}
+        &nbsp;
+        <button
+          className="btn btn-sm btn-outline text-base btn-accent"
+          ref={(c) => {
+            if (c) {
+              c.onclick = () => {
+                const bidX = bidXRef.current?.value;
+                const bidY = bidYRef.current?.value;
+                const askX = askXRef.current?.value;
+                const askY = askYRef.current?.value;
+                if (!(bidX && bidY && askX && askY)) {
+                  return;
+                }
+
+                connection.bidPos = { x: parseInt(bidX), y: parseInt(bidY) };
+                connection.askPos = { x: parseInt(askX), y: parseInt(askY) };
+              };
+            }
+          }}
+        >
+          set mouse position
+        </button>
+      </div>
+      <div>
+        auto control:&nbsp;
+        <button
+          className="btn btn-sm btn-outline text-base btn-accent"
           ref={(c) => {
             if (c) {
               c.onclick = () => {

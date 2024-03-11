@@ -78,12 +78,12 @@ export const UseTesseractTickAll: React.FC<{
           </button>
           &nbsp;
           <button
-            className="btn btn-sm btn-outline text-base btn-warning"
+            className="btn btn-sm btn-outline text-base btn-info"
             ref={(c) => {
               if (c) {
                 c.onclick = () => {
-                  if (connection.getIsloop()) {
-                    connection.stoploop();
+                  if (connection.getIsLoop()) {
+                    connection.stopLoop();
                     c.textContent = `run loop`;
                   } else {
                     connection.loopSendRate();

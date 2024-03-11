@@ -1,7 +1,7 @@
 import { Socket, io } from "socket.io-client";
 import { RateInfo, Tick } from "./type";
 import { timer } from "./util";
-import { autoMouse } from ".";
+import { mouseClick } from ".";
 
 const dp = 10000;
 
@@ -41,6 +41,29 @@ export class ConnectionOCR {
     return this.socket ? this.socket.connected : false;
   }
 
+  private orderNow = "";
+  public askPos = { x: 134, y: 359 };
+  public bidPos = { x: 255, y: 359 };
+  public left = true;
+
+  private autoSettle = async (canvas: HTMLCanvasElement) => {
+    switch (this.orderNow) {
+      // settle ask
+      case "long":
+        console.log(`ask settlement ${this.orderNow}`);
+        // ask注文時、bidを押すと決済
+        await mouseClick(this.left, canvas, this.bidPos);
+        break;
+
+      // settle bid
+      case "short":
+        console.log(`bid settlement ${this.orderNow}`);
+        // bid注文時、askを押すと決済
+        await mouseClick(this.left, canvas, this.askPos);
+        break;
+    }
+  };
+
   public connect(canvas?: HTMLCanvasElement) {
     if (this.socket == undefined) {
       this.socket = io(this.serverAddress, this.socketOption);
@@ -56,14 +79,40 @@ export class ConnectionOCR {
       });
 
       if (canvas) {
-        this.socket.on("reqOrder", (order: string) => {
-          console.log(`order: ${order}`);
+        this.socket.on("reqOrder", async (order: string) => {
+          console.log(
+            `order: ${order} | autoAccept: ${this.autoAccept} | orderNow: ${this.orderNow}`,
+          );
+
           if (this.autoAccept) {
             // auto control
-            autoMouse(canvas, {
-              button: "contextmenu",
-              pos: { x: 500, y: 500 },
-            });
+            switch (order) {
+              // ask
+              case "long":
+                await this.autoSettle(canvas);
+                await mouseClick(this.left, canvas, this.askPos);
+                this.orderNow = "long";
+
+                break;
+
+              // bid
+              case "short":
+                await this.autoSettle(canvas);
+                mouseClick(this.left, canvas, this.bidPos);
+                this.orderNow = "short";
+
+                break;
+
+              // cancel position
+              case "cross":
+                await this.autoSettle(canvas);
+                this.orderNow = "";
+
+                break;
+
+              default:
+                break;
+            }
           }
         });
       }
@@ -76,11 +125,11 @@ export class ConnectionOCR {
     // console.log(`tick: ${JSON.stringify(this.tick)}`);
   }
 
-  public getIsloop() {
+  public getIsLoop() {
     return this.isCheck;
   }
 
-  public stoploop() {
+  public stopLoop() {
     this.isCheck = false;
   }
 

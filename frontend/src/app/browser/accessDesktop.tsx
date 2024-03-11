@@ -103,7 +103,7 @@ export const AccessDesktop: React.FC = () => {
                   <div>
                     control:&nbsp;
                     <button
-                      className="btn btn-sm btn-outline text-base btn-accent"
+                      className="btn btn-sm btn-outline text-base btn-warning"
                       ref={(c) => {
                         if (c) {
                           c.onclick = () => {
