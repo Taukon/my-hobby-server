@@ -47,9 +47,9 @@ export const mouseClick = async (
   if (isLeft) {
     await autoMouse(canvas, { button: "mousedown", pos: pos });
     await autoMouse(canvas, { button: "mouseup", pos: pos });
-    await timer(100);
+    await timer(1000);
   } else {
     await autoMouse(canvas, { button: "contextmenu", pos: pos });
-    await timer(100);
+    await timer(1000);
   }
 };

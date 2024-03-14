@@ -13,3 +13,12 @@ export type RateInfo = {
   count: number;
   timestamp: number;
 };
+
+export type Position = { x: number; y: number };
+
+type Rectangle = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+};

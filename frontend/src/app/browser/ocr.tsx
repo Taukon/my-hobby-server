@@ -1,7 +1,6 @@
 import { UseTesseract } from "./tesseract";
 import { UseTesseractTick } from "./tesseract/tick";
-import { UseTesseractTick2 } from "./tesseract/tick2";
-import { UseTesseractTickAll } from "./tesseract/tickAll";
+import { TickTC } from "./tesseract/tickTC";
 
 export const UseOCR: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
   return (
@@ -23,13 +22,17 @@ export const UseOCR: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
         <summary>bid OCR</summary>
         <UseTesseractTick id={"bid"} canvas={canvas} />
       </details>
-      <details>
+      {/* <details>
         <summary>bid2 OCR</summary>
         <UseTesseractTick2 id={"bid2"} canvas={canvas} />
       </details>
       <details>
         <summary>tickAll OCR</summary>
         <UseTesseractTickAll id={"tick"} canvas={canvas} />
+      </details> */}
+      <details>
+        <summary>tickTC OCR</summary>
+        <TickTC canvas={canvas} />
       </details>
     </>
   );
