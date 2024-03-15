@@ -36,7 +36,7 @@ export const UseOCR: React.FC<{ canvas: HTMLCanvasElement }> = ({ canvas }) => {
         <TickTC canvas={canvas} />
       </details>
       <details>
-        <summary>tickTC OCR</summary>
+        <summary>tickTC2 OCR</summary>
         <TickTC2 canvas={canvas} />
       </details>
     </>
