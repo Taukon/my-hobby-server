@@ -457,7 +457,7 @@ const LogicConf: React.FC<{
                     over: parseFloat(over),
                   };
                   console.log(
-                    `set tcm conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over}`,
+                    `set tcm conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over} | orderNow: ${tcm.tcat.getOrderNow()}`,
                   );
                 }
               };
