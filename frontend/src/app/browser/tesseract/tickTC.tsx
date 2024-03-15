@@ -456,8 +456,10 @@ const LogicConf: React.FC<{
                     sizeA: parseFloat(sizeA),
                     over: parseFloat(over),
                   };
+                  const info = tcm.tcat.getOrderInfo();
                   console.log(
-                    `set tcm conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over} | orderNow: ${tcm.tcat.getOrderNow()}`,
+                    `set conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over} |\n` +
+                      `order now: ${info.order}, pro: ${info.profit}, los: ${info.lossCut}`,
                   );
                 }
               };

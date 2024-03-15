@@ -28,8 +28,12 @@ export class AutoTrade {
     this.profitOCR = new AutoTradeOcr(canvas);
   }
 
-  public getProfit() {
-    return this.profit;
+  public getOrderInfo() {
+    return {
+      order: this.getOrderNow(),
+      profit: this.profit,
+      lossCut: this.lossCut,
+    };
   }
 
   public isFixProfit(): boolean {

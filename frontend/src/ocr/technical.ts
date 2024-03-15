@@ -151,7 +151,8 @@ export class TechnicalChartMethod {
     const { diffAB, sizeA, over } = this.conf;
 
     console.log(
-      `low: ${bolAHigh - bolALow >= sizeA} ${sma200 > sma325} ${bolALow > sma325} ${bolS > sma200} | high: ${bolAHigh - bolALow >= sizeA} ${sma325 > sma200} ${sma325 > bolAHigh} ${sma200 > bolS}`,
+      `low: ${bolAHigh - bolALow >= sizeA} ${sma200 > sma325} ${bolALow > sma325} ${bolS > sma200} |\n` +
+        `high: ${bolAHigh - bolALow >= sizeA} ${sma325 > sma200} ${sma325 > bolAHigh} ${sma200 > bolS}`,
     );
 
     // low

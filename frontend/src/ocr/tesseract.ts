@@ -267,7 +267,7 @@ const checkTick = (tickStr: string): number => {
   ) {
     return tick;
   } else {
-    console.log(`error: ${tick} | ${tick.toFixed(4) == `${tick.toFixed(3)}0`}`);
+    console.log(`error: ${tick}|d:${tick.toFixed(4) == `${tick.toFixed(3)}0`}`);
     return NaN;
   }
 };
