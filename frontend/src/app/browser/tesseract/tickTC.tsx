@@ -7,7 +7,7 @@ import { ReadTCRect } from "./rectTC";
 export const TickTC: React.FC<{
   canvas: HTMLCanvasElement;
 }> = ({ canvas }) => {
-  const r1 = { left: 40, top: 379, width: 68, height: 396 };
+  const r1 = { left: 40, top: 379, width: 70, height: 396 };
   const r2 = { left: 75, top: 376, width: 105, height: 396 };
   const r3 = { left: 104, top: 371, width: 117, height: 391 };
   const rs = { left: 130, top: 380, width: 158, height: 395 };
