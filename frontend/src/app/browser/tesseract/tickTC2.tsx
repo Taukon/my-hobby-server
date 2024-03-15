@@ -4,28 +4,28 @@ import { TechnicalChartMethod } from "../../../ocr/technical";
 import { AutoTradeMode } from "./autoTrade";
 import { ReadTCRect } from "./rectTC";
 
-export const TickTC: React.FC<{
+export const TickTC2: React.FC<{
   canvas: HTMLCanvasElement;
 }> = ({ canvas }) => {
-  const r1 = { left: 40, top: 379, width: 70, height: 396 };
-  const r2 = { left: 75, top: 376, width: 105, height: 396 };
-  const r3 = { left: 104, top: 371, width: 117, height: 391 };
-  const rs = { left: 130, top: 380, width: 158, height: 395 };
+  const r1 = { left: 55, top: 322, width: 103, height: 349 };
+  const r2 = { left: 106, top: 317, width: 154, height: 349 };
+  const r3 = { left: 153, top: 312, width: 171, height: 338 };
+  const rs = { left: 191, top: 324, width: 235, height: 343 };
 
-  const bidPos = { x: 117, y: 387 };
-  const askPos = { x: 255, y: 387 };
-  const chartPos = { x: 1182, y: 367 };
+  const bidPos = { x: 174, y: 333 };
+  const askPos = { x: 380, y: 328 };
+  const chartPos = { x: 784, y: 278 };
 
-  const sma200 = { left: 176, top: 267, width: 220, height: 279 };
-  const sma325 = { left: 295, top: 267, width: 339, height: 279 };
-  const bolS = { left: 166, top: 285, width: 206, height: 298 };
-  const bolAHigh = { left: 273, top: 285, width: 314, height: 298 };
-  const bolALow = { left: 318, top: 285, width: 359, height: 298 };
-  const bolBHigh = { left: 429, top: 285, width: 469, height: 298 };
-  const bolBLow = { left: 473, top: 285, width: 515, height: 298 };
+  const sma200 = { left: 260, top: 155, width: 323, height: 174 };
+  const sma325 = { left: 434, top: 155, width: 500, height: 174 };
+  const bolS = { left: 242, top: 182, width: 306, height: 199 };
+  const bolAHigh = { left: 402, top: 182, width: 465, height: 199 };
+  const bolALow = { left: 469, top: 182, width: 530, height: 199 };
+  const bolBHigh = { left: 633, top: 182, width: 696, height: 199 };
+  const bolBLow = { left: 700, top: 182, width: 762, height: 199 };
 
-  const shortRect = { left: 27, top: 501, width: 100, height: 520 };
-  const longRect = { left: 182, top: 501, width: 259, height: 520 };
+  const shortRect = { left: 45, top: 145, width: 145, height: 528 };
+  const longRect = { left: 285, top: 145, width: 381, height: 528 };
 
   const top1Ref = useRef<HTMLInputElement>(null);
   const left1Ref = useRef<HTMLInputElement>(null);

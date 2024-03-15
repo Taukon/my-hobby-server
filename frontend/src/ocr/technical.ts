@@ -1,7 +1,7 @@
 import { Worker, createWorker } from "tesseract.js";
 import { mouseClick } from ".";
 import { AutoTrade } from "./autoTrade";
-import { Position, Rectangle, Tick } from "./type";
+import { ATParam, Position, TCMItem, Tick } from "./type";
 import { timer } from "./util";
 
 export type TCMType =
@@ -38,9 +38,9 @@ export class TechnicalChartMethod {
   public tcocr: TechnicalChartOCR;
   public tcat: AutoTrade;
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement, atParams: ATParam) {
     this.tcocr = new TechnicalChartOCR(canvas);
-    this.tcat = new AutoTrade(canvas);
+    this.tcat = new AutoTrade(canvas, atParams);
   }
 
   private tick: Tick = { bid: 0, ask: 0, spread: 0 };
@@ -205,11 +205,6 @@ export class TechnicalChartMethod {
   //   --------------------------------------------------------------------------
   //   --------------------------------------------------------------------------
 }
-
-type TCMItem = {
-  rect: Rectangle;
-  ref: React.RefObject<HTMLDivElement>;
-};
 
 export class TechnicalChartOCR {
   private worker?: Worker;

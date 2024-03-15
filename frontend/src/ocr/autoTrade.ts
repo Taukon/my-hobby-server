@@ -1,20 +1,17 @@
 import { Rectangle, Worker, createWorker } from "tesseract.js";
 import { mouseClick } from ".";
-import { Position } from "./type";
+import { ATParam, Position } from "./type";
 import { timer } from "./util";
 
 type ATOrderType = "long" | "short" | "cross" | "";
 
 export class AutoTrade {
   private orderNow: ATOrderType = "";
-  // private bidPos = { x: 134, y: 359 };
-  // private askPos = { x: 255, y: 359 };
-
   public left = true;
-  public bidPos: Position = { x: 117, y: 387 };
-  public askPos: Position = { x: 255, y: 387 };
-  public shortRect: Rectangle = { left: 27, top: 501, width: 100, height: 520 };
-  public longRect: Rectangle = { left: 182, top: 501, width: 259, height: 520 };
+  public bidPos: Position;
+  public askPos: Position;
+  public shortRect: Rectangle;
+  public longRect: Rectangle;
 
   private canvas: HTMLCanvasElement;
   private profit = NaN;
@@ -23,8 +20,12 @@ export class AutoTrade {
 
   public autoAccept = false;
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement, param: ATParam) {
     this.canvas = canvas;
+    this.bidPos = param.bidPos;
+    this.askPos = param.askPos;
+    this.shortRect = param.shortRect;
+    this.longRect = param.longRect;
     this.profitOCR = new AutoTradeOcr(canvas);
   }
 

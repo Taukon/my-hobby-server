@@ -22,3 +22,15 @@ type Rectangle = {
   width: number;
   height: number;
 };
+
+export type ATParam = {
+  bidPos: Position;
+  askPos: Position;
+  shortRect: Rectangle;
+  longRect: Rectangle;
+};
+
+export type TCMItem = {
+  rect: Rectangle;
+  ref: React.RefObject<HTMLDivElement>;
+};
