@@ -24,8 +24,8 @@ export const TickTC2: React.FC<{
   const bolBHigh = { left: 633, top: 182, width: 696, height: 199 };
   const bolBLow = { left: 700, top: 182, width: 762, height: 199 };
 
-  const shortRect = { left: 45, top: 145, width: 145, height: 528 };
-  const longRect = { left: 285, top: 145, width: 381, height: 528 };
+  const shortRect = { left: 45, top: 498, width: 145, height: 528 };
+  const longRect = { left: 285, top: 498, width: 381, height: 528 };
 
   const top1Ref = useRef<HTMLInputElement>(null);
   const left1Ref = useRef<HTMLInputElement>(null);

@@ -124,7 +124,7 @@ export class AutoTrade {
             height: this.longRect.height - this.longRect.top,
           };
 
-          this.profitOCR.recognoze((text) => {
+          this.profitOCR.recognize((text) => {
             const v = parseFloat(text);
             if (!Number.isNaN(v)) {
               this.profit = v;
@@ -150,7 +150,7 @@ export class AutoTrade {
             height: this.shortRect.height - this.shortRect.top,
           };
 
-          this.profitOCR.recognoze((text) => {
+          this.profitOCR.recognize((text) => {
             const v = parseFloat(text);
             if (!Number.isNaN(v)) {
               this.profit = v;
@@ -179,7 +179,7 @@ class AutoTradeOcr {
     this.canvas = canvas;
   }
 
-  public async recognoze(
+  public async recognize(
     callback: (text: string) => void,
     rectangle: Rectangle,
   ): Promise<void> {
