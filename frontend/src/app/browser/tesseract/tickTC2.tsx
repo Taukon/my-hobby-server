@@ -14,7 +14,7 @@ export const TickTC2: React.FC<{
 
   const bidPos = { x: 174, y: 333 };
   const askPos = { x: 380, y: 328 };
-  const chartPos = { x: 784, y: 278 };
+  const chartPos = { x: 668, y: 250 };
 
   const sma200 = { left: 260, top: 155, width: 323, height: 174 };
   const sma325 = { left: 434, top: 155, width: 500, height: 174 };
