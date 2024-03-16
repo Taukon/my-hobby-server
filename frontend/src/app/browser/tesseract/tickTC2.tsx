@@ -448,7 +448,7 @@ const LogicConf: React.FC<{
           ref={overRef}
           type="number"
           step={0.001}
-          min={0.001}
+          min={-0.001}
           max={1}
           defaultValue={tcm.conf.over}
         />
