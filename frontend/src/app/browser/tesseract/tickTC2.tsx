@@ -418,6 +418,7 @@ const LogicConf: React.FC<{
   const diffABRef = useRef<HTMLInputElement>(null);
   const sizeARef = useRef<HTMLInputElement>(null);
   const overRef = useRef<HTMLInputElement>(null);
+  const limitSpreadRef = useRef<HTMLInputElement>(null);
   const limitProfitRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -453,9 +454,19 @@ const LogicConf: React.FC<{
           max={1}
           defaultValue={tcm.conf.over}
         />
-        {" limit profit: "}
+        {" limit spread: "}
         <input
           className="input input-sm input-bordered input-primary w-24 max-w-sm text-base"
+          ref={limitSpreadRef}
+          type="number"
+          step={0.001}
+          min={0}
+          max={1}
+          defaultValue={tcm.conf.limitSpread}
+        />
+        {" limit profit: "}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
           ref={limitProfitRef}
           type="number"
           step={1}
@@ -472,13 +483,21 @@ const LogicConf: React.FC<{
                 const diffABStr = diffABRef.current?.value;
                 const sizeAStr = sizeARef.current?.value;
                 const overStr = overRef.current?.value;
+                const limitSpreadStr = limitSpreadRef.current?.value;
                 const limitProfitStr = limitProfitRef.current?.value;
 
-                if (diffABStr && sizeAStr && overStr && limitProfitStr) {
+                if (
+                  diffABStr &&
+                  sizeAStr &&
+                  overStr &&
+                  limitProfitStr &&
+                  limitSpreadStr
+                ) {
                   tcm.conf = {
                     diffAB: parseFloat(diffABStr),
                     sizeA: parseFloat(sizeAStr),
                     over: parseFloat(overStr),
+                    limitSpread: parseFloat(limitSpreadStr),
                   };
                   const limitProfit = parseInt(limitProfitStr);
                   if (!Number.isNaN(limitProfit)) {
@@ -488,8 +507,8 @@ const LogicConf: React.FC<{
                   const info = tcm.tcat.getOrderInfo();
                   console.log(
                     `set conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over} |\n` +
-                      `order now: ${info.order}, pro: ${info.profit}, los: ${info.lossCut} ` +
-                      `limit pro: ${tcm.tcat.limitProfit}`,
+                      `limit spread: ${tcm.conf.limitSpread}, limit pro: ${tcm.tcat.limitProfit} \n` +
+                      `order now: ${info.order}, pro: ${info.profit}, los: ${info.lossCut} \n`,
                   );
                 }
               };

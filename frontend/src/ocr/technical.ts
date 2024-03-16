@@ -138,10 +138,11 @@ export class TechnicalChartMethod {
     diffAB: 0.06,
     sizeA: 0.06,
     over: 0.03,
+    limitSpread: 0.004,
   };
 
   private async logicOrder(bid: number, spread: number) {
-    if (!this.checkChartValues() || spread > 0.004) {
+    if (!this.checkChartValues() || spread > this.conf.limitSpread) {
       return;
     }
 

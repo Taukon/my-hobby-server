@@ -418,6 +418,8 @@ const LogicConf: React.FC<{
   const diffABRef = useRef<HTMLInputElement>(null);
   const sizeARef = useRef<HTMLInputElement>(null);
   const overRef = useRef<HTMLInputElement>(null);
+  const limitSpreadRef = useRef<HTMLInputElement>(null);
+  const limitProfitRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -448,9 +450,29 @@ const LogicConf: React.FC<{
           ref={overRef}
           type="number"
           step={0.001}
-          min={0.001}
+          min={-1}
           max={1}
           defaultValue={tcm.conf.over}
+        />
+        {" limit spread: "}
+        <input
+          className="input input-sm input-bordered input-primary w-24 max-w-sm text-base"
+          ref={limitSpreadRef}
+          type="number"
+          step={0.001}
+          min={0}
+          max={1}
+          defaultValue={tcm.conf.limitSpread}
+        />
+        {" limit profit: "}
+        <input
+          className="input input-sm input-bordered input-primary w-20 max-w-sm text-base"
+          ref={limitProfitRef}
+          type="number"
+          step={1}
+          min={0}
+          max={10000}
+          defaultValue={tcm.tcat.limitProfit}
         />
         &nbsp;
         <button
@@ -458,19 +480,35 @@ const LogicConf: React.FC<{
           ref={(c) => {
             if (c) {
               c.onclick = () => {
-                const diffAB = diffABRef.current?.value;
-                const sizeA = sizeARef.current?.value;
-                const over = overRef.current?.value;
-                if (diffAB && sizeA && over) {
+                const diffABStr = diffABRef.current?.value;
+                const sizeAStr = sizeARef.current?.value;
+                const overStr = overRef.current?.value;
+                const limitSpreadStr = limitSpreadRef.current?.value;
+                const limitProfitStr = limitProfitRef.current?.value;
+
+                if (
+                  diffABStr &&
+                  sizeAStr &&
+                  overStr &&
+                  limitProfitStr &&
+                  limitSpreadStr
+                ) {
                   tcm.conf = {
-                    diffAB: parseFloat(diffAB),
-                    sizeA: parseFloat(sizeA),
-                    over: parseFloat(over),
+                    diffAB: parseFloat(diffABStr),
+                    sizeA: parseFloat(sizeAStr),
+                    over: parseFloat(overStr),
+                    limitSpread: parseFloat(limitSpreadStr),
                   };
+                  const limitProfit = parseInt(limitProfitStr);
+                  if (!Number.isNaN(limitProfit)) {
+                    tcm.tcat.limitProfit = limitProfit;
+                  }
+
                   const info = tcm.tcat.getOrderInfo();
                   console.log(
                     `set conf: ${tcm.conf.diffAB}, ${tcm.conf.sizeA}, ${tcm.conf.over} |\n` +
-                      `order now: ${info.order}, pro: ${info.profit}, los: ${info.lossCut}`,
+                      `limit spread: ${tcm.conf.limitSpread}, limit pro: ${tcm.tcat.limitProfit} \n` +
+                      `order now: ${info.order}, pro: ${info.profit}, los: ${info.lossCut} \n`,
                   );
                 }
               };
