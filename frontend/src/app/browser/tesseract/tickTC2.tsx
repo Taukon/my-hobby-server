@@ -453,7 +453,7 @@ const LogicConf: React.FC<{
           max={1}
           defaultValue={tcm.conf.over}
         />
-        &nbsp;
+        {" limit profit: "}
         <input
           className="input input-sm input-bordered input-primary w-24 max-w-sm text-base"
           ref={limitProfitRef}
