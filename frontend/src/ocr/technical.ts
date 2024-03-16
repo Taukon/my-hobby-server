@@ -46,7 +46,8 @@ export class TechnicalChartMethod {
   private tick: Tick = { bid: 0, ask: 0, spread: 0 };
   private isCheck = false;
 
-  public setTick(bid: number, spread: number) {
+  public setTick(bid: number, spreadPips: number) {
+    const spread = spreadPips * 0.01;
     const ask = Math.floor((bid + spread) * dp) / dp;
     this.tick = { bid, ask, spread };
     // console.log(`tick: ${JSON.stringify(this.tick)}`);
@@ -64,6 +65,15 @@ export class TechnicalChartMethod {
     ) {
       return true;
     }
+    console.warn(
+      `sma200 ${!Number.isNaN(this.tcms.sma200)} | \n` +
+        `sma325 ${!Number.isNaN(this.tcms.sma325)} | \n` +
+        `bolS ${!Number.isNaN(this.tcms.bolS)} | \n` +
+        `bolAH ${!Number.isNaN(this.tcms.bolAHigh)} | \n` +
+        `bolAL ${!Number.isNaN(this.tcms.bolALow)} | \n` +
+        `bolBH ${!Number.isNaN(this.tcms.bolBHigh)} | \n` +
+        `bolBL ${!Number.isNaN(this.tcms.bolBLow)}`,
+    );
     return false;
   }
 
@@ -143,6 +153,9 @@ export class TechnicalChartMethod {
 
   private async logicOrder(bid: number, spread: number) {
     if (!this.checkChartValues() || spread > this.conf.limitSpread) {
+      console.log(
+        `${spread > this.conf.limitSpread} | s:${spread} | l:${this.conf.limitSpread}`,
+      );
       return;
     }
 
