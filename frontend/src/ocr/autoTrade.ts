@@ -75,6 +75,29 @@ export class AutoTrade {
     return undefined;
   }
 
+  private async clickSettle(pos: Position) {
+    let isDone = false;
+    await mouseClick(this.left, this.canvas, pos);
+
+    while (!isDone) {
+      await timer(1500);
+      this.profit = NaN;
+      await timer(500);
+
+      if (Number.isNaN(this.profit)) {
+        this.profitOCR.clear();
+
+        this.lossCut = NaN;
+        this.orderNow = "";
+        isDone = true;
+
+        break;
+      }
+
+      await mouseClick(this.left, this.canvas, pos);
+    }
+  }
+
   public async autoSettle() {
     if (!this.autoAccept) return;
 
@@ -84,10 +107,8 @@ export class AutoTrade {
         if (!this.bidPos) return;
         console.log(`ask settlement ${this.orderNow}`);
         // ask注文時、bidを押すと決済
-        await mouseClick(this.left, this.canvas, this.bidPos);
-        this.profitOCR.clear();
-        this.profit = NaN;
-        this.lossCut = NaN;
+        await this.clickSettle(this.bidPos);
+
         break;
 
       // settle bid
@@ -95,10 +116,8 @@ export class AutoTrade {
         if (!this.askPos) return;
         console.log(`bid settlement ${this.orderNow}`);
         // bid注文時、askを押すと決済
-        await mouseClick(this.left, this.canvas, this.askPos);
-        this.profitOCR.clear();
-        this.profit = NaN;
-        this.lossCut = NaN;
+        await this.clickSettle(this.askPos);
+
         break;
     }
   }
@@ -114,8 +133,6 @@ export class AutoTrade {
 
         if (this.longRect && this.askPos) {
           await mouseClick(this.left, this.canvas, this.askPos);
-          this.orderNow = "long";
-          this.lossCut = lossCut;
 
           const rect: Rectangle = {
             left: this.longRect.left,
@@ -130,6 +147,14 @@ export class AutoTrade {
               this.profit = v;
             }
           }, rect);
+
+          await timer(2000);
+          if (!Number.isNaN(this.profit)) {
+            this.orderNow = "long";
+            this.lossCut = lossCut;
+          } else {
+            this.profitOCR.clear();
+          }
         }
 
         break;
@@ -140,8 +165,6 @@ export class AutoTrade {
 
         if (this.shortRect && this.bidPos) {
           mouseClick(this.left, this.canvas, this.bidPos);
-          this.orderNow = "short";
-          this.lossCut = lossCut;
 
           const rect: Rectangle = {
             left: this.shortRect.left,
@@ -156,7 +179,16 @@ export class AutoTrade {
               this.profit = v;
             }
           }, rect);
+
+          await timer(2000);
+          if (!Number.isNaN(this.profit)) {
+            this.orderNow = "short";
+            this.lossCut = lossCut;
+          } else {
+            this.profitOCR.clear();
+          }
         }
+
         break;
 
       // cancel position
