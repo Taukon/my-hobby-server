@@ -431,7 +431,7 @@ const LogicConf: React.FC<{
           type="number"
           step={0.001}
           min={0.001}
-          max={1}
+          max={100}
           defaultValue={tcm.conf.diffAB}
         />
         {" sizeA: "}
@@ -441,7 +441,7 @@ const LogicConf: React.FC<{
           type="number"
           step={0.001}
           min={0.001}
-          max={1}
+          max={100}
           defaultValue={tcm.conf.sizeA}
         />
         {" over: "}
@@ -450,8 +450,8 @@ const LogicConf: React.FC<{
           ref={overRef}
           type="number"
           step={0.001}
-          min={-1}
-          max={1}
+          min={-100}
+          max={100}
           defaultValue={tcm.conf.over}
         />
         {" limit spread: "}
