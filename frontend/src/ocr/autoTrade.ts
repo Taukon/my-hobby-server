@@ -19,6 +19,7 @@ export class AutoTrade {
   private lossCut = NaN;
 
   public autoAccept = false;
+  public limitProfit = 5;
 
   constructor(canvas: HTMLCanvasElement, param: ATParam) {
     this.canvas = canvas;
@@ -39,7 +40,7 @@ export class AutoTrade {
 
   public isFixProfit(): boolean {
     if (!Number.isNaN(this.profit)) {
-      if (this.profit > 5) {
+      if (this.profit > this.limitProfit) {
         return true;
       }
     }
